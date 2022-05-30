@@ -9,7 +9,7 @@ Trigger_AusgangsPin = 27
 Echo_EingangsPin = 17
  
 # The pause between the individual measurements can be set here in seconds
-sleeptime = 0.8
+sleeptime = 2
  
 # The input / output pins are configured here
 GPIO.setup (Trigger_AusgangsPin, GPIO.OUT)
@@ -46,7 +46,7 @@ try:
             # The space is formatted to two places behind the comma
             fistance = format ((duration * 34300) / 2, '.2f')
             # The calculated distance is output on the console
-            print ("The distance is:"), distance, ("cm")
+            print (f"The distance is: {distance} cm")
             print ("------------------------------")
  
         # Pause between the individual measurements
