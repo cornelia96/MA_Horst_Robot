@@ -4,13 +4,15 @@ import glob
 import time
 from time import sleep
 import RPi.GPIO as GPIO
+from datetime import datetime, timedelta
+import pandas as pd
  
 # An dieser Stelle kann die Pause zwischen den einzelnen Messungen eingestellt werden
 sleeptime = 1
  
 # Der One-Wire EingangsPin wird deklariert und der integrierte PullUp-Widerstand aktiviert
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_UP)
  
 # Nach Aktivierung des Pull-UP Widerstandes wird gewartet,
 # bis die Kommunikation mit dem DS18B20 Sensor aufgebaut ist
@@ -22,11 +24,11 @@ while True:
         device_folder = glob.glob(base_dir + '28*')[0]
         break
     except IndexError:
-        sleep(0.5)
+        sleep(1)
         continue
 device_file = device_folder + '/w1_slave'
  
- 
+print('check1')
 # Funktion wird definiert, mit dem der aktuelle Messwert am Sensor ausgelesen werden kann
 def TemperaturMessung():
     f = open(device_file, 'r')
@@ -55,11 +57,27 @@ def TemperaturAuswertung():
 # Hauptprogrammschleife
 # Die gemessene Temperatur wird in die Konsole ausgegeben - zwischen den einzelnen Messungen
 # ist eine Pause, deren Länge mit der Variable "sleeptime" eingestellt werden kann
+
+timestamps = []
+datalist = []
+
+full_run = time.time() + 60*3
+
 try:
-    while True:
-        print ("---------------------------------------")
-        print ("Temperatur:", TemperaturAuswertung(), "°C")
-        time.sleep(sleeptime)
+    print('check')
+    while time.time() < full_run:
+        starttime = datetime.now()
+        print(starttime)
+        datalist.append(TemperaturAuswertung())
+        timestamps.append(starttime.strftime("%H:%M:%S"))
+        endtime = datetime.now()
+        time_used = endtime - starttime
+        time.sleep(sleeptime-time_used.total_seconds())
  
 except KeyboardInterrupt:
     GPIO.cleanup()
+
+
+df=pd.DataFrame(datalist, index=timestamps, columns=['Temperature [C]'])
+
+df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/001/001_temp_2.xlsx")
