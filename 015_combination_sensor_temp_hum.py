@@ -46,5 +46,5 @@ while time.time() < full_run:
 
 df=pd.DataFrame(datalist, index=timestamps, columns=['Temperature [C]', 'Humitity'])
 
-df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/015_temp_hum.xlsx")
+df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/015_temp_hum_5.xlsx")
     
