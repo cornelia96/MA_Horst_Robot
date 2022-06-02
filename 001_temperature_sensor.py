@@ -78,6 +78,7 @@ except KeyboardInterrupt:
     GPIO.cleanup()
 
 
+
 df=pd.DataFrame(datalist, index=timestamps, columns=['Temperature [C]'])
 
-df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/001/001_temp_2.xlsx")
+df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/001/001_temp_5.xlsx")
