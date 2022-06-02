@@ -3,22 +3,31 @@
 import time
 import RPi.GPIO as GPIO
 GPIO.setmode (GPIO.BCM)
+from datetime import datetime, timedelta
+import pandas as pd
  
 # The respective input / output pins can be selected here
-Trigger_AusgangsPin = 27
-Echo_EingangsPin = 17
+Trigger_AusgangsPin = 15
+Echo_EingangsPin = 18
  
 # The pause between the individual measurements can be set here in seconds
-sleeptime = 2
+sleeptime = 1
  
 # The input / output pins are configured here
 GPIO.setup (Trigger_AusgangsPin, GPIO.OUT)
 GPIO.setup (Echo_EingangsPin, GPIO.IN)
 GPIO.output (Trigger_AusgangsPin, False)
+
+timestamps = []
+datalist = []
+
+full_run = time.time() + 60
  
 # Main program loop
 try:
-    while True:
+    while time.time() < full_run:
+        starttime = datetime.now()
+        print(starttime)
         # Distance measurement is started by means of the 10us long trigger signal
         GPIO.output (Trigger_AusgangsPin, True)
         time.sleep (0.00001)
@@ -44,14 +53,20 @@ try:
             print ("------------------------------")
         else:
             # The space is formatted to two places behind the comma
-            fistance = format ((duration * 34300) / 2, '.2f')
+            distance = format ((duration * 34300) / 2, '.2f')
             # The calculated distance is output on the console
-            print (f"The distance is: {distance} cm")
-            print ("------------------------------")
+            datalist.append(distance)
+            timestamps.append(starttime.strftime("%H:%M:%S"))
  
         # Pause between the individual measurements
-        time.sleep (sleeptime)
+        endtime = datetime.now()
+        time_used = endtime - starttime
+        time.sleep(sleeptime-time_used.total_seconds())
  
 # Clean up after the program has ended
 except KeyboardInterrupt:
     GPIO.cleanup ()
+
+df=pd.DataFrame(datalist, index=timestamps, columns=['Distance [m]'])
+
+df.to_excel("/home/cornelia/Documents/Sensortests_1/Data/050/050_ultrasonic_5.xlsx")
