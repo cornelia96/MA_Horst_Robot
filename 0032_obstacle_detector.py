@@ -1,11 +1,12 @@
 #Modules required are imported and set up
 import RPi. GPIO  as  GPIO
 import time
+from datetime import datetime
  
 GPIO.setmode (GPIO.BCM) 
  
 # Here the input pin to which the sensor is connected is declared.
-GPIO_PIN = 24
+GPIO_PIN = 15
 GPIO.setup (GPIO_PIN, GPIO.IN , pull_up_down = GPIO.PUD_UP) 
  
 # Pause between output is defined (in seconds) 
@@ -20,7 +21,7 @@ try:
             print ("No obstacle") 
         else:
             print ("obstacle detected") 
-        print ("---------------------------------------")
+        print (datetime.now())
  
         # Reset + Delay
         time.sleep (delayTime) 
