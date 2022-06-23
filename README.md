@@ -1,2 +1,3 @@
-# Sensortests_1
-# Testrunde No. 1 meiner Masterarbeit für die Sensoren aus dem Joy-it X40 Sensorkit
+# Masterarbeit: Erstellung eines Digitalen  Zwillings für einen Roboterarm mit erweiterter Umgebungsintegration durch Sensorik
+
+# Es wird mit einem HORST600 des Herstellers fruitcore, einem Raspberry Pi 4b+ sowie verschiedenen Sensoren gearbeitet
