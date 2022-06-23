@@ -4,7 +4,7 @@ from time import sleep
 from opcua import Server
 
 server = Server()
-server.set_endpoint("opc.tcp://192.168.113.32:3300")
+server.set_endpoint("opc.tcp://192.168.113.38:3300")
 server.register_namespace("Digital Twin HORST600")
 
 objects = server.get_objects_node()

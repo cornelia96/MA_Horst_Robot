@@ -45,7 +45,7 @@ def TemperaturAuswertung():
         temp_c = float(temp_string) / 1000.0
         return temp_c
 
-client = Client("opc.tcp://192.168.113.32:3300")
+client = Client("opc.tcp://192.168.113.38:3300")
 client.connect()
 
 client.get_namespace_array()
