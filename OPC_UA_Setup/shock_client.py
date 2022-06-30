@@ -6,8 +6,6 @@ import RPi.GPIO as GPIO
 from time import sleep
 import constants
 
-sleep(5)
-print("file started")
 
 client = Client(f"opc.tcp://{constants.ip_address}:3300")
 client.connect()

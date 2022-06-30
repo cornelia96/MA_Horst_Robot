@@ -15,7 +15,6 @@ sleeptime = 1
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(constants.tempsens_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-print ("Warte auf Initialisierung...")
  
 base_dir = '/sys/bus/w1/devices/'
 while True:
@@ -26,8 +25,7 @@ while True:
         sleep(1)
         continue
 device_file = device_folder + '/w1_slave'
- 
-print('check1')
+
 
 def TemperaturMessung():
     f = open(device_file, 'r')
