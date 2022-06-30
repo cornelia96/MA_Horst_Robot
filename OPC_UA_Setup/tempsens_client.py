@@ -6,12 +6,14 @@ import time
 from time import sleep
 import RPi.GPIO as GPIO
 from datetime import datetime, timedelta
-import pins
+import constants
+
+sleep(5)
 
 sleeptime = 1
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(pins.tempsens_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(constants.tempsens_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 print ("Warte auf Initialisierung...")
  
@@ -46,7 +48,7 @@ def TemperaturAuswertung():
         temp_c = float(temp_string) / 1000.0
         return temp_c
 
-client = Client("opc.tcp://192.168.113.38:3300")
+client = Client(f"opc.tcp://{constants.ip_address}:3300")
 client.connect()
 
 client.get_namespace_array()
