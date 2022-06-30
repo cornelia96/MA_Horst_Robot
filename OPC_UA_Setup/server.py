@@ -14,7 +14,7 @@ def start_shock():
 def start_tilt():
     import tiltsens_client
 
-threads = [Thread(target = start_temp), Thread(target = start_shock), Thread(target = start_shock)]
+threads = [Thread(target = start_temp), Thread(target = start_shock), Thread(target = start_tilt)]
 
 server = Server()
 server.set_endpoint(f"opc.tcp://{constants.ip_address}:3300")
@@ -27,7 +27,7 @@ temperature = temp_sensor.add_variable('ns=2;s="temp"', "Aktuelle Temperatur", 0
 temperature.set_writable()
 
 shock_sensor = objects.add_object('ns=2;s="shocksens"', "Erschuetterungsschalter")
-shock_detected = shock_sensor.add_variable('n2=3;s="shock"', "Erschuetterung detektiert", False)
+shock_detected = shock_sensor.add_variable('ns=2;s="shock"', "Erschuetterung detektiert", False)
 shock_detected.set_writable()
 
 tilt_sensor = objects.add_object('ns=2;s="tiltsens"', "Neigungsschalter")
@@ -39,14 +39,16 @@ try:
     server.start()
     print("Server Online")
 
-    for td in threads: 
+    for td in threads:
         td.start()
 
     while True:
         print(f"""Aktuelle Temperatur: {temperature.get_value()}
-                  Erschuetterung erkannt: {shock_detected.get_value()}""")
+                  Erschuetterung erkannt: {shock_detected.get_value()}
+                  Neigung erkannt: {tilt_detected.get_value()}""")
         sleep(0.5)
-finally:
+        
+except KeyboardInterrupt:
     for td in threads:
         td.join()
     server.stop()

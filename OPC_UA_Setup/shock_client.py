@@ -18,8 +18,6 @@ shocksensor = objects.get_children()[2]
 
 shock_detected = shocksensor.get_children()[0]
 
-print("client started")
-
 GPIO.setmode(GPIO.BCM)
    
 # Hier wird der Eingangs-Pin deklariert, an dem der Sensor angeschlossen ist. Zusaetzlich wird auch der PullUP Widerstand am Eingang aktiviert
