@@ -6,11 +6,12 @@ import time
 from time import sleep
 import RPi.GPIO as GPIO
 from datetime import datetime, timedelta
+import pins
 
 sleeptime = 1
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(pins.tempsens_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 print ("Warte auf Initialisierung...")
  
