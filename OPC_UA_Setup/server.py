@@ -17,6 +17,8 @@ shock_sensor = objects.add_object('ns=2;s="tempsens"', "Temperatursensor")
 shock_detected = temp_sensor.add_variable('ns=2;s="temp"', "Aktuelle Temperatur", False)
 shock_detected.set_writable()
 
+
+
 try:
     print("Start Server")
     server.start()

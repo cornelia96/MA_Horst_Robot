@@ -42,12 +42,3 @@ try:
 except KeyboardInterrupt:
         GPIO.cleanup()
 
-
-
-try:
-    while True:
-        measured_temp = TemperaturAuswertung()
-        if current_temperature +0.5 < measured_temp or measured_temp < current_temperature -0.5: 
-            temperature.set_value(measured_temp)
-except KeyboardInterrupt:
-    GPIO.cleanup()
