@@ -5,7 +5,7 @@ import time
 GPIO.setmode(GPIO.BCM)
   
 # Hier wird der Eingangs-Pin deklariert, an dem der Sensor angeschlossen ist. Zusaetzlich wird auch der PullUP Widerstand am Eingang aktiviert
-LED_PIN =4 
+LED_PIN =23
 GPIO.setup(LED_PIN, GPIO.OUT, initial= GPIO.LOW)
   
 print("LED-Test [druecken Sie STRG+C, um den Test zu beenden]")
